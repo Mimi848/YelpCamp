@@ -18,19 +18,40 @@ db.once("open", () => {
 
 const sample = array => array[Math.floor(Math.random() * array.length)];
 
-
 const seedDB = async () => {
     await Campground.deleteMany({});
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 300; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
         const price = Math.floor(Math.random() * 20) + 10;
         const camp = new Campground({
+            //YOUR USER ID
+            author: '5fdbc52c0876e469aff1ff66',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
-            image: "https://source.unsplash.com/collection/483251",
-            description: 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eos sequi est soluta sint amet pariatur eligendi officiis numquam culpa quisquam nihil saepe molestiae, veniam consequatur iste modi autem temporibus quo.',
-            price
-
+            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dolores vero perferendis laudantium, consequuntur voluptatibus nulla architecto, sit soluta esse iure sed labore ipsam a cum nihil atque molestiae deserunt!',
+            price,
+            geometry: {
+                type: "Point",
+                coordinates: [
+                    cities[random1000].longitude,
+                    cities[random1000].latitude,
+                ]
+            },
+            images: [
+               
+                {
+                    url: 'https://res.cloudinary.com/dzei3l8nl/image/upload/v1608717825/YelpCamp/jfhw9tbefuuybah246f9.jpg',
+                    filename: 'YelpCamp/jfhw9tbefuuybah246f9'
+                },
+                {
+                    url: 'https://res.cloudinary.com/dzei3l8nl/image/upload/v1608717825/YelpCamp/fmmaazxsukgtoioqgpqx.jpg',
+                    filename: 'YelpCamp/fmmaazxsukgtoioqgpqx'
+                },
+                {
+                    url: 'https://res.cloudinary.com/dzei3l8nl/image/upload/v1608717825/YelpCamp/l40xa0zokgcmcxdlmvmj.jpg',
+                    filename: 'YelpCamp/l40xa0zokgcmcxdlmvmj'
+                }
+            ]
         })
         await camp.save();
     }
